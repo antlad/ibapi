@@ -32,6 +32,10 @@ func init() {
 	log, _ = zap.NewProduction()
 }
 
+func SetLogger(lg *zap.Logger) {
+	log = lg
+}
+
 // APILogger sets the options of internal logger for API, such as level, encoder, output, see uber.org/zap for more information
 func SetAPILogger(cfg zap.Config, opts ...zap.Option) error {
 	newlogger, err := cfg.Build(opts...)
@@ -246,7 +250,7 @@ func handleEmpty(d interface{}) string {
 	}
 }
 
-//InitDefault try to init the object with the default tag, that is a common way but not a efficent way
+// InitDefault try to init the object with the default tag, that is a common way but not a efficent way
 func InitDefault(o interface{}) {
 	t := reflect.TypeOf(o).Elem()
 	v := reflect.ValueOf(o).Elem()
